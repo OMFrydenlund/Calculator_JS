@@ -1,3 +1,10 @@
+/*
+TO-DO's:
+  - Re-enable typing in input field
+  - Eraser functionality
+  - Explore next steps with WinForms + WebView2
+*/
+
 var firstNumber = null;
 var operationType = null;
 var shouldReset = false; // is true if an operation is chosen/result is shown

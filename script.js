@@ -61,7 +61,7 @@ function equals() {
     result = firstNumber * secondNumber;
   } else if (operationType == "divide") {
     if (secondNumber === 0) {
-      display.value = "Error";
+      display.value = "Dumb";
       firstNumber = null;
       operationType = null;
       shouldReset = true;

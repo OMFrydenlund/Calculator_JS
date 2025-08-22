@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculator_JS</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="brand">Calculator</div>
+    <input class="display" id="display" type="text" value="0" readonly />
+
+    <div class="keys">
+      <button class="key" onclick="setOperation('add')">+</button>
+      <button class="key" onclick="setOperation('subtract')">−</button>
+      <button class="key" onclick="setOperation('multiply')">×</button>
+      <button class="key" onclick="setOperation('divide')">÷</button>
+
+      <button class="key" onclick="pressDigit('6')">6</button>
+      <button class="key" onclick="pressDigit('7')">7</button>
+      <button class="key" onclick="pressDigit('8')">8</button>
+      <button class="key" onclick="pressDigit('9')">9</button>
+
+      <button class="key" onclick="pressDigit('2')">2</button>
+      <button class="key" onclick="pressDigit('3')">3</button>
+      <button class="key" onclick="pressDigit('4')">4</button>
+      <button class="key" onclick="pressDigit('5')">5</button>
+
+      <button class="key" onclick="pressDigit('1')">1</button>
+
+      <button class="key" onclick="pressDigit('0')">0</button>
+      <button class="key" onclick="pressDot()">.</button>
+      <button class="key equals" onclick="equals()">=</button>
+      <button class="key" onclick="clearDisplay()">C</button>
+    </div>
+
+    <script>
+      var firstNumber = null;
+      var operationType = null;
+      var shouldReset = false; // is true if an operation is chosen/result is shown
+
+      function getDisplay() {
+        return document.getElementById("display");
+      }
+
+      function clearDisplay() {
+        var display = getDisplay();
+        display.value = "0";
+        firstNumber = null;
+        operationType = null;
+        shouldReset = false;
+      }
+
+      function pressDigit(digit) {
+        var display = getDisplay();
+        if (display.value == "0" || shouldReset) {
+          display.value = digit;
+          shouldReset = false;
+        } else {
+          display.value = display.value + digit;
+        }
+      }
+
+      function pressDot() {
+        var display = getDisplay();
+        if (shouldReset) {
+          display.value = "0.";
+          shouldReset = false;
+          return;
+        }
+        if (display.value.indexOf(".") === -1) {
+          display.value = display.value + ".";
+        }
+      }
+
+      function setOperation(nextOperation) {
+        var display = getDisplay();
+        firstNumber = parseFloat(display.value); // parses displayed value, remembers it as the first number
+        operationType = nextOperation; // remembers the chosen operation
+        shouldReset = true; // next digit starts a new number
+      }
+
+      function equals() {
+        var display = getDisplay();
+
+        if (operationType === null || firstNumber === null) {
+          return;
+        }
+
+        var secondNumber = parseFloat(display.value);
+        var result;
+
+        if (operationType === "add") {
+          result = firstNumber + secondNumber;
+        } else if (operationType === "subtract") {
+          result = firstNumber - secondNumber;
+        } else if (operationType === "multiply") {
+          result = firstNumber * secondNumber;
+        } else if (operationType === "divide") {
+          if (secondNumber === 0) {
+            display.value = "Error";
+            firstNumber = null;
+            operationType = null;
+            shouldReset = true;
+            return;
+          } else {
+            result = firstNumber / secondNumber;
+          }
+        }
+
+        display.value = String(result);
+
+        firstNumber = null;
+        operationType = null;
+        shouldReset = true;
+      }
+    </script>
+  </body>
+</html>

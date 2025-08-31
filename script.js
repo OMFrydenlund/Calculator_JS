@@ -1,8 +1,8 @@
 /*
 TO-DO's:
-  - Re-enable typing in input field
-  - Eraser functionality
-  - Explore next steps with WinForms + WebView2
+  - Backspace and/or enable manual input
+  - Explore next steps with WinForms + WebView2 (find alternatives)
+  - Alternative functionality?
 */
 
 var firstNumber = null;
